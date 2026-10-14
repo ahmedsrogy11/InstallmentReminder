@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InstallmentReminder.MainPage"
+             Title="أقساطي"
+             FlowDirection="RightToLeft">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16">
+
+            <Label
+                Text="إضافة قسط جديد"
+                FontSize="26"
+                FontAttributes="Bold" />
+
+            <Label Text="اسم القسط" />
+
+            <Entry
+                x:Name="TitleEntry"
+                Placeholder="مثال: قسط الموبايل"
+                MaxLength="120" />
+         
+            
+            <Label Text="المبلغ بالريال" />
+
+            <Entry
+                x:Name="AmountEntry"
+                Placeholder="مثال: 500"
+                Keyboard="Numeric" />
+
+
+            <Label Text="تاريخ استحقاق القسط" />
+            <DatePicker x:Name="DueDatePicker" Format="dd/MM/yyyy" />
+
+            <Label Text="ساعة الاستحقاق" />
+            <TimePicker x:Name="DueTimePicker" Format="HH:mm" />
+
+            <Label Text="تاريخ التذكير" />
+            <DatePicker x:Name="ReminderDatePicker" Format="dd/MM/yyyy" />
+
+            <Label Text="ساعة التذكير" />
+            <TimePicker x:Name="ReminderTimePicker" Format="HH:mm" />
+
+            <Label Text="صورة الفاتورة — اختياري" />
+
+            <Button
+                  Text="اختيار صورة"
+                  Clicked="OnPickImageClicked" />
+
+            <Image
+                 x:Name="InvoiceImage"
+                 HeightRequest="180"
+                 Aspect="AspectFit"
+                 IsVisible="False" />
+
+
+
+            <Button
+             x:Name="SaveButton"
+              Text="حفظ القسط"
+               Clicked="OnPreviewClicked" />
+
+            <Button
+                 Text="عرض الأقساط المحفوظة"
+                  Clicked="OnShowInstallmentsClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

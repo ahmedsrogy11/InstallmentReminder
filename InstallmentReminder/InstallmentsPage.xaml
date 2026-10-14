@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:InstallmentReminder.Models"
+    x:Class="InstallmentReminder.InstallmentsPage"
+    Title="الأقساط المحفوظة"
+    FlowDirection="RightToLeft">
+
+    <Grid Padding="20">
+
+        <CollectionView
+            x:Name="InstallmentsList"
+            SelectionMode="None"
+            EmptyView="لا توجد أقساط محفوظة">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Installment">
+
+                    <Border
+                        Padding="16"
+                        Margin="0,0,0,12"
+                        Stroke="#CCCCCC"
+                        StrokeShape="RoundRectangle 12">
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Label
+                                Text="{Binding Title}"
+                                FontSize="22"
+                                FontAttributes="Bold" />
+
+                            <Label
+                                Text="{Binding Amount,
+                                    StringFormat='المبلغ: {0:N2} ريال'}" />
+
+                            <Label
+                                Text="{Binding DueDate,
+                                    StringFormat='الاستحقاق: {0:dd/MM/yyyy HH:mm}'}" />
+
+                            <Label
+                                Text="{Binding ReminderAt,
+                                    StringFormat='التذكير: {0:dd/MM/yyyy HH:mm}'}" />
+
+                            <Label
+                                Text="الحالة: غير مدفوع"
+                                TextColor="#B45309"
+                                FontAttributes="Bold">
+
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding IsPaid}"
+                                        Value="True">
+
+                                        <Setter
+                                            Property="Text"
+                                            Value="الحالة: تم السداد" />
+
+                                        <Setter
+                                            Property="TextColor"
+                                            Value="#15803D" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+
+                            </Label>
+
+                            <Image
+                                Source="{Binding ImagePath}"
+                                HeightRequest="180"
+                                Aspect="AspectFit">
+
+                                <Image.Triggers>
+                                    <DataTrigger
+                                        TargetType="Image"
+                                        Binding="{Binding ImagePath}"
+                                        Value="{x:Null}">
+
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Image"
+                                        Binding="{Binding ImagePath}"
+                                        Value="">
+
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+                                </Image.Triggers>
+
+                            </Image>
+
+                            <Button
+                                Text="تم السداد"
+                                BackgroundColor="#15803D"
+                                TextColor="White"
+                                Clicked="OnMarkPaidClicked">
+
+                                <Button.Triggers>
+                                    <DataTrigger
+                                        TargetType="Button"
+                                        Binding="{Binding IsPaid}"
+                                        Value="True">
+
+                                        <Setter
+                                            Property="IsVisible"
+                                            Value="False" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+
+                            </Button>
+
+                        </VerticalStackLayout>
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+    </Grid>
+</ContentPage>
