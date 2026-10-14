@@ -5,6 +5,23 @@ installments, attach invoice images, and schedule payment reminders.
 
 Developed as a freelance project with an Arabic right-to-left interface.
 
+## Screenshots
+
+### Create an installment
+<img width="691" height="1536" alt="1" src="https://github.com/user-attachments/assets/4a3c7394-9df9-4a6a-adf9-362df254032e" />
+
+### Save and schedule notifications
+<img width="691" height="1536" alt="2" src="https://github.com/user-attachments/assets/8ba21fd5-0230-4016-ade9-688e2205fc86" />
+
+### View unpaid installments
+<img width="691" height="1536" alt="3" src="https://github.com/user-attachments/assets/35ad85a6-8939-418e-877b-ab4e736103c9" />
+
+### Confirm payment
+<img width="691" height="1536" alt="4" src="https://github.com/user-attachments/assets/be9fcfe4-2d1e-40bc-9414-2440a5859b0d" />
+
+### Paid installment
+<img width="691" height="1536" alt="5" src="https://github.com/user-attachments/assets/95e21e6e-ca7c-43e9-b62d-36902eeb5529" />
+
 ## Features
 
 - Create installments with a title, amount, and payment due date.
