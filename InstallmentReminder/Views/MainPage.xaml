@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="InstallmentReminder.MainPage"
+             x:Class="InstallmentReminder.Views.MainPage"
              Title="أقساطي"
              FlowDirection="RightToLeft">
 
@@ -28,7 +28,6 @@
                 Placeholder="مثال: 500"
                 Keyboard="Numeric" />
 
-
             <Label Text="تاريخ استحقاق القسط" />
             <DatePicker x:Name="DueDatePicker" Format="dd/MM/yyyy" />
 
@@ -44,25 +43,23 @@
             <Label Text="صورة الفاتورة — اختياري" />
 
             <Button
-                  Text="اختيار صورة"
-                  Clicked="OnPickImageClicked" />
+                Text="اختيار صورة"
+                Clicked="OnPickImageClicked" />
 
             <Image
-                 x:Name="InvoiceImage"
-                 HeightRequest="180"
-                 Aspect="AspectFit"
-                 IsVisible="False" />
-
-
+                x:Name="InvoiceImage"
+                HeightRequest="180"
+                Aspect="AspectFit"
+                IsVisible="False" />
 
             <Button
-             x:Name="SaveButton"
-              Text="حفظ القسط"
-               Clicked="OnPreviewClicked" />
+                x:Name="SaveButton"
+                Text="حفظ القسط"
+                Clicked="OnSaveClicked" />
 
             <Button
-                 Text="عرض الأقساط المحفوظة"
-                  Clicked="OnShowInstallmentsClicked" />
+                Text="عرض الأقساط المحفوظة"
+                Clicked="OnShowInstallmentsClicked" />
 
         </VerticalStackLayout>
     </ScrollView>

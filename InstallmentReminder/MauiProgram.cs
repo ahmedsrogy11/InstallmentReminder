@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using InstallmentReminder.Data;
+using InstallmentReminder.Services;
+using InstallmentReminder.Views;
 
 #if ANDROID || IOS
 using Plugin.LocalNotification;
@@ -35,7 +37,10 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddSingleton<InstallmentDatabase>();
+        builder.Services.AddSingleton<ReminderService>();
+        builder.Services.AddSingleton<InvoiceImageService>();
         builder.Services.AddTransient<MainPage>();
+        builder.Services.AddTransient<InstallmentsPage>();
 
         return builder.Build();
     }

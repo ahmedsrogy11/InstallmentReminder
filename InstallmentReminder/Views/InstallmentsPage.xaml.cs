@@ -1,17 +1,20 @@
 using InstallmentReminder.Data;
 using InstallmentReminder.Models;
+using InstallmentReminder.Services;
 
-namespace InstallmentReminder;
+namespace InstallmentReminder.Views;
 
 public partial class InstallmentsPage : ContentPage
 {
     private readonly InstallmentDatabase _database;
+    private readonly ReminderService _reminders;
     private bool _isSaving;
 
-    public InstallmentsPage(InstallmentDatabase database)
+    public InstallmentsPage(InstallmentDatabase database, ReminderService reminders)
     {
         InitializeComponent();
         _database = database;
+        _reminders = reminders;
     }
 
     protected override async void OnAppearing()
@@ -93,23 +96,13 @@ public partial class InstallmentsPage : ContentPage
 
             paymentSaved = true;
 
-#if ANDROID || IOS
-            // نلغي إشعار التذكير وإشعار ميعاد الدفع.
-            // نحاول إلغاء كل واحد حتى لو فشل إلغاء الآخر.
-            bool reminderCancelled =
-                CancelNotification(installment.Id);
-
-            bool dueCancelled =
-                CancelNotification(-installment.Id);
-
-            if (!reminderCancelled || !dueCancelled)
+            if (!_reminders.Cancel(installment))
             {
                 await DisplayAlertAsync(
                     "تنبيه",
                     "تم حفظ السداد، لكن لم يتم تأكيد إلغاء كل الإشعارات؛ قد يظهر إشعار لهذا القسط.",
                     "موافق");
             }
-#endif
 
             await LoadInstallmentsAsync();
         }
@@ -131,20 +124,4 @@ public partial class InstallmentsPage : ContentPage
         }
     }
 
-#if ANDROID || IOS
-    private static bool CancelNotification(int notificationId)
-    {
-        try
-        {
-            return Plugin.LocalNotification.LocalNotificationCenter
-                .Current.Cancel(notificationId);
-        }
-        catch (Exception ex)
-        {
-            System.Diagnostics.Debug.WriteLine(ex);
-
-            return false;
-        }
-    }
-#endif
 }

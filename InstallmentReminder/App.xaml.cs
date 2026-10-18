@@ -1,5 +1,3 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
 namespace InstallmentReminder
 {
     public partial class App : Application

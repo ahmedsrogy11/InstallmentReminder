@@ -50,12 +50,24 @@ Developed as a freelance project with an Arabic right-to-left interface.
 
 - `Models/` — Installment data model.
 - `Data/` — SQLite database access.
-- `MainPage.xaml` — Installment creation interface.
-- `MainPage.xaml.cs` — Validation, image selection, saving, and notifications.
-- `InstallmentsPage.xaml` — Saved installments interface.
-- `InstallmentsPage.xaml.cs` — Loading records and marking payments as complete.
+- `Views/MainPage.xaml` — Installment creation interface.
+- `Views/MainPage.xaml.cs` — Form validation, user feedback, and save workflow.
+- `Views/InstallmentsPage.xaml` — Saved installments interface.
+- `Views/InstallmentsPage.xaml.cs` — Loading records and marking payments as complete.
+- `Services/ReminderService.cs` — Notification permissions, scheduling, and cancellation.
+- `Services/ReminderPermissionStatus.cs` — Permission results displayed by the page.
+- `Services/InvoiceImageService.cs` — Invoice image selection and local file storage.
+- `AppShell.xaml` / `AppShell.xaml.cs` — Home page and navigation routes.
 - `Platforms/Android/` — Android configuration and permissions.
 - `MauiProgram.cs` — Application configuration and service registration.
+
+Pages receive the database and services through constructor injection. The database
+and services are shared instances; pages are transient. Shell resolves the saved
+installments page through its registered route. Services do not reference pages;
+permission results are returned to the UI so it can show the appropriate message.
+
+SQLite remains in `installments.db3`, images remain in `Invoices/`, and notification
+IDs remain `Id` for reminders and `-Id` for payment dates, preserving existing data.
 
 ## Getting Started
 
@@ -66,6 +78,22 @@ Developed as a freelance project with an Arabic right-to-left interface.
 5. Select an Android emulator or a connected Android device.
 6. Build and run the application.
 7. Grant notification and alarm permissions when prompted.
+
+To build the Android target from the command line:
+
+```powershell
+dotnet build InstallmentReminder/InstallmentReminder.csproj -f net10.0-android
+```
+
+## Manual Verification
+
+- Launch the app and verify the Arabic form and date/time defaults.
+- Try an empty title, invalid amount, and past reminder; verify validation messages.
+- Cancel image selection, then select an image and verify its preview.
+- Save a future installment, granting notification/alarm permissions as needed.
+- Open saved installments, return, and reopen to check navigation and persistence.
+- Mark an installment paid; verify its status and cancellation of both notifications.
+- Restart the app and confirm existing installments and invoice images still load.
 
 ## Notification Workflow
 
